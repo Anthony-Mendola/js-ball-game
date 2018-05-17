@@ -26,24 +26,32 @@ window.onload = function() {
 }
 
 function updateAll() {
-  ballX+= ballSpeedX;
-  ballY+= ballSpeedY;
+  moveAll();
+  drawAll();
+}
+
+function moveAll() {
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;
 
   if(ballX < 0) {
-    ballSpeedX += -1;
+    ballSpeedX *= -1;
   }
 
   if(ballX > canvas.width) {
-    ballSpeedX += -1;
+    ballSpeedX *= -1;
   }
+
   if(ballY < 0) {
-    ballSpeedY += -1;
+    ballSpeedY *= -1;
   }
 
   if(ballY > canvas.height) {
-    ballSpeedY += -1;
+    ballSpeedY *= -1;
   }
+}
 
+function drawAll() {
   canvasContext.fillStyle = 'black';
   canvasContext.fillRect(0,0, canvas.width, canvas.height);
 
