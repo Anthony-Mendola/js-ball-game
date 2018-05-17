@@ -1,2 +1,2 @@
-# js-tile-game
-Creating a simple tile game with JavaScript.
+# js-ball-game
+Creating a simple ball game with JavaScript.
