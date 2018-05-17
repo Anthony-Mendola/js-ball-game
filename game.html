@@ -74,6 +74,8 @@ function drawAll() {
   colorRect(0,0, canvas.width, canvas.height, 'black'); //clear screen
 
   colorCircle(ballX,ballY, 10, 'aqua'); // draw ball
+
+  colorRect(paddleX, canvas.height-PADDLE_THICKNESS, PADDLE_WIDTH,PADDLE_THICKNESS, 'white');
 }
 
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
