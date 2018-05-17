@@ -18,6 +18,7 @@ var ballSpeedY = 7;
 
 const PADDLE_WIDTH = 100;
 const PADDLE_THICKNESS = 10;
+const PADDLE_DIST_FROM_EDGE = 60;
 var paddleX = 400;
 
 
@@ -49,6 +50,11 @@ function updateAll() {
   drawAll();
 }
 
+function ballReset() {
+  ballX = canvas.width/2;
+  ballY = canvas.height/2;
+}
+
 function moveAll() {
   ballX += ballSpeedX;
   ballY += ballSpeedY;
@@ -57,17 +63,30 @@ function moveAll() {
     ballSpeedX *= -1;
   }
 
-  if(ballX > canvas.width) {
+  if(ballX > canvas.width) { // right
     ballSpeedX *= -1;
   }
 
-  if(ballY < 0) {
+  if(ballY < 0) { // top
     ballSpeedY *= -1;
   }
 
-  if(ballY > canvas.height) {
-    ballSpeedY *= -1;
+  if(ballY > canvas.height) { //bottom
+    ballReset();
+    //ballSpeedY *= -1;
   }
+
+  var paddleTopEdgeY = canvas.height-PADDLE_DIST_FROM_EDGE;
+  var paddleBottomEdgeY = paddleTopEdgeY + PADDLE_THICKNESS;
+  var paddleLeftEdgeX = paddleX;
+  var paddleRightEdgeX = paddleLeftEdgeX + PADDLE_WIDTH;
+  if(ballY > paddleTopEdgeY && //below the top of the paddle
+    ballY < paddleBottomEdgeY && //above bottom of paddle
+    ballX > paddleLeftEdgeX && //right of the left side of paddle
+    ballX < paddleRightEdgeX) {
+      ballSpeedY *= -1;
+    }//left of the right side of paddle
+
 }
 
 function drawAll() {
@@ -75,7 +94,7 @@ function drawAll() {
 
   colorCircle(ballX,ballY, 10, 'aqua'); // draw ball
 
-  colorRect(paddleX, canvas.height-PADDLE_THICKNESS, PADDLE_WIDTH,PADDLE_THICKNESS, 'white');
+  colorRect(paddleX, canvas.height-PADDLE_DIST_FROM_EDGE, PADDLE_WIDTH,PADDLE_THICKNESS, 'white');
 }
 
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
